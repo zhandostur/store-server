@@ -13,9 +13,9 @@ def index(request):
 
 
 def products(request, category_id=None, page_number=1):
-    products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
+    product = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
     per_page = 3
-    paginator = Paginator(products, per_page)
+    paginator = Paginator(product, per_page)
     products_paginator = paginator.page(page_number)
 
     context = {
@@ -39,6 +39,7 @@ def basket_add(request, product_id):
         basket.save()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 @login_required
 def basket_remove(request, basket_id):
